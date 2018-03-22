@@ -1,11 +1,9 @@
-package checkers;
+package checkers.model;
 
+import checkers.CheckersApp;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class Tile extends Rectangle {
 
     private Piece piece;

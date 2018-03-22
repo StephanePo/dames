@@ -1,5 +1,9 @@
 package checkers;
 
+import checkers.model.Piece;
+import checkers.model.Tile;
+import checkers.view.MoveType;
+import checkers.view.PieceType;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -58,9 +62,9 @@ public class CheckersApp extends Application {
         int x0 = toBoard(piece.getOldX());
         int y0 = toBoard(piece.getOldY());
 
-        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
+        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().getMoveDir()) {
             return new MoveResult(MoveType.NORMAL);
-        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
+        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().getMoveDir() * 2) {
 
             int x1 = x0 + (newX - x0) / 2;
             int y1 = y0 + (newY - y0) / 2;
@@ -73,6 +77,7 @@ public class CheckersApp extends Application {
         return new MoveResult(MoveType.NONE);
     }
 
+    // Permet de convertir la valeur du pixel en index sur le damier
     private int toBoard(double pixel) {
         return (int)(pixel + TILE_SIZE / 2) / TILE_SIZE;
     }
@@ -80,7 +85,7 @@ public class CheckersApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(createContent());
-        primaryStage.setTitle("CheckersApp");
+        primaryStage.setTitle("Jeu de dames");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -94,6 +99,7 @@ public class CheckersApp extends Application {
 
             MoveResult result;
 
+            // Gestion du dépassement du plateau 
             if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
                 result = new MoveResult(MoveType.NONE);
             } else {

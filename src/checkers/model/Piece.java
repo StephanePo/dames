@@ -1,4 +1,4 @@
-package checkers;
+package checkers.model;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -6,9 +6,8 @@ import javafx.scene.shape.Ellipse;
 
 import static checkers.CheckersApp.TILE_SIZE;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
+import checkers.view.PieceType;
+
 public class Piece extends StackPane {
 
     private PieceType type;

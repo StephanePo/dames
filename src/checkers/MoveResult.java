@@ -1,17 +1,17 @@
 package checkers;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
+import checkers.model.Piece;
+import checkers.view.MoveType;
+
 public class MoveResult {
 
     private MoveType type;
+    private Piece piece;
 
     public MoveType getType() {
         return type;
     }
-
-    private Piece piece;
+   
 
     public Piece getPiece() {
         return piece;
