@@ -24,7 +24,7 @@ public class CheckersApp extends Application {
 	private Group tileGroup = new Group();
 	private Group pieceGroup = new Group();
 
-	public ManageRound mngRound;
+	public static ManageRound mngRound;
 
 	private Parent createContent() {
 		Pane root = new Pane();
@@ -98,49 +98,51 @@ public class CheckersApp extends Application {
 	private Piece makePiece(PieceType type, int x, int y) {
 		Piece piece = new Piece(type, x, y);
 
-		
-		if (piece.getNbMove() <= 0) {
-			piece.setOnMouseReleased(e -> {
-				System.out.println("nb move : " + piece.getNbMove());
+		piece.setOnMouseReleased(e -> {
+			System.out.println("nb move : " + piece.getNbMove());
 
-				int newX = toBoard(piece.getLayoutX());
-				int newY = toBoard(piece.getLayoutY());
+			int newX = toBoard(piece.getLayoutX());
+			int newY = toBoard(piece.getLayoutY());
 
-				MoveResult result;
+			MoveResult result;
 
-				// Gestion du dépassement du plateau 
-				if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
-					result = new MoveResult(MoveType.NONE);
-				} else {
-					result = tryMove(piece, newX, newY);
-				}
+			// Gestion du dépassement du plateau 
+			if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
+				result = new MoveResult(MoveType.NONE);
+			} else {
+				result = tryMove(piece, newX, newY);
+			}
 
-				int x0 = toBoard(piece.getOldX());
-				int y0 = toBoard(piece.getOldY());
+			int x0 = toBoard(piece.getOldX());
+			int y0 = toBoard(piece.getOldY());
 
-				switch (result.getType()) {
-				case NONE:
-					piece.abortMove();
-					break;
-				case NORMAL:
-					piece.move(newX, newY);
-					board[x0][y0].setPiece(null);
-					board[newX][newY].setPiece(piece);
-					break;
-				case KILL:
-					piece.move(newX, newY);
-					board[x0][y0].setPiece(null);
-					board[newX][newY].setPiece(piece);
+			switch (result.getType()) {
+			case NONE:
+				piece.abortMove();
+				break;
+			case NORMAL:
+				piece.move(newX, newY);
+				board[x0][y0].setPiece(null);
+				board[newX][newY].setPiece(piece);
+				break;
+			case KILL:
+				piece.move(newX, newY);
+				board[x0][y0].setPiece(null);
+				board[newX][newY].setPiece(piece);
 
-					Piece otherPiece = result.getPiece();
-					board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
-					pieceGroup.getChildren().remove(otherPiece);
-					break;
-				}
+				Piece otherPiece = result.getPiece();
+				board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
+				pieceGroup.getChildren().remove(otherPiece);
+				break;
+
+			}
+			if (result.getType() != MoveType.NONE) {
+				mngRound.changeWhite_round();
 				piece.incNbMove();
+			}
 
-			});
-		}
+		});
+
 
 
 		return piece;

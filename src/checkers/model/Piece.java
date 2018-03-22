@@ -61,8 +61,8 @@ public class Piece extends StackPane {
 		});
 
 		setOnMouseDragged(e -> {
-
-			if (this.getNbMove() <= 0) 
+			if ((this.getType() == PieceType.WHITE && checkers.CheckersApp.mngRound.isWhite_round()) ||
+					(this.getType() == PieceType.RED && !checkers.CheckersApp.mngRound.isWhite_round())) 
 				relocate(e.getSceneX() - mouseX + oldX, e.getSceneY() - mouseY + oldY);
 		});
 	}

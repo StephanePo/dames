@@ -34,8 +34,8 @@ public class ManageRound {
 		return whiteRound;
 	}
 
-	public void setWhite_round(boolean white_round) {
-		this.whiteRound = white_round;
+	public void changeWhite_round() {
+		this.whiteRound = !this.whiteRound;
 	}
 
 	public boolean isRoundInit() {
