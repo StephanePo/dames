@@ -25,6 +25,16 @@ public class CheckersApp extends Application {
 	private Group pieceGroup = new Group();
 
 	public static ManageRound mngRound;
+	
+	public int x1Old, y1Old;
+	
+	/**
+	 * Return true if just on type of piece stay on board
+	 */
+	private boolean verifyEnd () {
+		
+		return true;
+	}
 
 	private Parent createContent() {
 		Pane root = new Pane();
@@ -59,6 +69,7 @@ public class CheckersApp extends Application {
 	}
 
 	private MoveResult tryMove(Piece piece, int newX, int newY) {
+				
 		if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
 			return new MoveResult(MoveType.NONE);
 		}
@@ -72,9 +83,13 @@ public class CheckersApp extends Application {
 
 			int x1 = x0 + (newX - x0) / 2;
 			int y1 = y0 + (newY - y0) / 2;
+			
+			x1Old = x1; y1Old = y1;
 
 			if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
-				return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+
+				MoveResult mvRes = new MoveResult(MoveType.KILL, board[x1][y1].getPiece()); 
+				return mvRes;
 			}
 		}
 
@@ -140,8 +155,7 @@ public class CheckersApp extends Application {
 				mngRound.changeWhite_round();
 				mngRound.incMoveNumber();
 				System.out.println(" --> Tour : " + (mngRound.getMoveNumber()/2)
-						+ "\t\t Joueur : " + (mngRound.isWhite_round() ? "Blanc" : "Rouge")
-						);	
+						+ "\t\t Joueur : " + (mngRound.isWhite_round() ? "Blanc" : "Rouge"));	
 				
 			}
 
