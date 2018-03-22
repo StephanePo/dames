@@ -66,12 +66,16 @@ public class Piece extends StackPane {
 				relocate(e.getSceneX() - mouseX + oldX, e.getSceneY() - mouseY + oldY);
 		});
 	}
+	
+	
 
 	public void move(int x, int y) {
 		oldX = x * TILE_SIZE;
 		oldY = y * TILE_SIZE;
 		relocate(oldX, oldY);
 	}
+	
+	
 
 	public void abortMove() {
 		relocate(oldX, oldY);

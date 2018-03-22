@@ -88,6 +88,7 @@ public class CheckersApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		System.out.println("================= Début =================\n --> Tour : 0");
 		this.mngRound = new ManageRound();
 		Scene scene = new Scene(createContent());
 		primaryStage.setTitle("Jeu de dames");
@@ -99,7 +100,6 @@ public class CheckersApp extends Application {
 		Piece piece = new Piece(type, x, y);
 
 		piece.setOnMouseReleased(e -> {
-			System.out.println("nb move : " + piece.getNbMove());
 
 			int newX = toBoard(piece.getLayoutX());
 			int newY = toBoard(piece.getLayoutY());
@@ -138,7 +138,8 @@ public class CheckersApp extends Application {
 			}
 			if (result.getType() != MoveType.NONE) {
 				mngRound.changeWhite_round();
-				piece.incNbMove();
+				mngRound.incMoveNumber();
+				System.out.println(" --> Tour : " + (mngRound.getMoveNumber()/2));				
 			}
 
 		});
