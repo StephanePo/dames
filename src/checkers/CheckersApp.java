@@ -88,7 +88,7 @@ public class CheckersApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		System.out.println("================= Début =================\n --> Tour : 0");
+		System.out.println("================= Début =================\n --> Tour : 0\t\t Joueur : Blanc");
 		this.mngRound = new ManageRound();
 		Scene scene = new Scene(createContent());
 		primaryStage.setTitle("Jeu de dames");
@@ -139,7 +139,10 @@ public class CheckersApp extends Application {
 			if (result.getType() != MoveType.NONE) {
 				mngRound.changeWhite_round();
 				mngRound.incMoveNumber();
-				System.out.println(" --> Tour : " + (mngRound.getMoveNumber()/2));				
+				System.out.println(" --> Tour : " + (mngRound.getMoveNumber()/2)
+						+ "\t\t Joueur : " + (mngRound.isWhite_round() ? "Blanc" : "Rouge")
+						);	
+				
 			}
 
 		});
